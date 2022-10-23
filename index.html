@@ -223,9 +223,22 @@ How will Willie respond
 
 “That’s the spirit! Ha ha…”
 
-[[join the battle | PreBattleBranch2_continue3]]</tw-passagedata><tw-passagedata pid="12" name="PreBattleBranch2_continue3" tags="" position="225,225" size="100,100">&lt;img src=&quot;./graphic/ww1-war-horse.gif&quot; align=&quot;right&quot;/&gt;
+ &lt;&lt;set $seconds to 25&gt;&gt;
 
-https://gifs.com/gif/world-war-i-battle-of-the-somme-2-4-yN44d5
+&lt;span id=&quot;countdown&quot;&gt;$seconds&lt;/span&gt;
+&lt;&lt;silently&gt;&gt;
+    &lt;&lt;repeat 1s&gt;&gt;
+        &lt;&lt;set $seconds to $seconds - 1&gt;&gt;
+        &lt;&lt;if $seconds gt 0&gt;&gt;
+            &lt;&lt;replace &quot;#countdown&quot;&gt;&gt; $seconds &lt;&lt;/replace&gt;&gt;
+        &lt;&lt;else&gt;&gt;
+            &lt;&lt;replace &quot;#countdown&quot;&gt;&gt;&lt;&lt;/replace&gt;&gt;
+            &lt;&lt;goto &quot;PreBattleBranch2_continue3&quot;&gt;&gt;
+            &lt;&lt;stop&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/repeat&gt;&gt;
+&lt;&lt;/silently&gt;&gt;
+[[join the battle | PreBattleBranch2_continue3]]</tw-passagedata><tw-passagedata pid="12" name="PreBattleBranch2_continue3" tags="" position="225,225" size="100,100">&lt;img src=&quot;./graphic/ww1-war-horse.gif&quot; align=&quot;right&quot;/&gt;
 //As the minutes turn to hours, the artillery barrage begins, a massive bombardment involving ever gun we have firing on the German positions ahead. In the meantime, the mood amongst the men shifted, conversations growing silent as the adrenaline kicked up by the Sergeant wore off. Some of the men seem to be silently weeping. But, as the sound of the artillery tapers off, the Sergeant’s shrill whistle fills the air.//
 
 

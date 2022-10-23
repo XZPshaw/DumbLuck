@@ -173,13 +173,26 @@ How will Willie respond
 
 “That’s the spirit! Ha ha…”
 
+ <<set $seconds to 25>>
+
+<span id="countdown">$seconds</span>
+<<silently>>
+    <<repeat 1s>>
+        <<set $seconds to $seconds - 1>>
+        <<if $seconds gt 0>>
+            <<replace "#countdown">> $seconds <</replace>>
+        <<else>>
+            <<replace "#countdown">><</replace>>
+            <<goto "PreBattleBranch2_continue3">>
+            <<stop>>
+        <</if>>
+    <</repeat>>
+<</silently>>
 [[join the battle | PreBattleBranch2_continue3]]
 
 
 :: PreBattleBranch2_continue3
 <img src="./graphic/ww1-war-horse.gif" align="right"/>
-
-https://gifs.com/gif/world-war-i-battle-of-the-somme-2-4-yN44d5
 //As the minutes turn to hours, the artillery barrage begins, a massive bombardment involving ever gun we have firing on the German positions ahead. In the meantime, the mood amongst the men shifted, conversations growing silent as the adrenaline kicked up by the Sergeant wore off. Some of the men seem to be silently weeping. But, as the sound of the artillery tapers off, the Sergeant’s shrill whistle fills the air.//
 
 
