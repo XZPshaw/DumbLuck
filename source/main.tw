@@ -1,0 +1,137 @@
+:: StoryData
+{
+        "ifid": "5DEB5264-F5B3-4E13-AF6B-82C4A8405A24"
+}
+
+
+
+
+:: StoryTitle
+Sleep On, Dear Willie
+
+:: StoryInit
+<<cacheaudio "title" "C:/Users/xiaoz/DumbLuck/xjqy.mp3">>
+<<cacheaudio "music2" "C:/Users/xiaoz/DumbLuck/msmw.mp3">>
+
+
+:: Start
+
+[[Start Game|PreBattle]] 
+
+:: PreBattle
+<<audio "title" play>>
+
+"It’s been three weeks since we were first stationed here around Vimy. The French and Brits have tried to kick the Germans outta this place for years, with nothing to show for it, so now they’ve turned to us to get it done. I suppose if you want to win a fight, you bring the Canadians… Life here has been miserable, weather’s been stormy, so everything has been turned into a muddy mess, though with how much our artillery has been hitting the Germans I can’t imagine that life’s going any better for them! By now the sound of it has become white noise to the rest of the infantry, but recently everyone has been abuzz with activity, so I have to imagine that something major is on the horizon”
+
+[[Continue|PreBattle1]] 
+
+:: PreBattle1
+"Will!”
+//A soldier yells, snapping me out of my writing. I looked up to find Private Edward, a well to do city boy and my friend, pushing through the throng of soldiers towards me.//
+
+[[Continue|PreBattle2]] 
+
+:: PreBattle2
+<<audio "music2" play>>
+
+“Oh, hey Ed, what’s going on?” 
+//I asked, stuffing the half-finished letter in my pocket as I pull myself to my feet.//
+
+“Sergeant’s orders Will,” 
+//Ed responds, somewhat out of breath,
+// “We’re on the move.”
+
+“Oh wow, I’m shocked…” 
+//I say in a monotone voice as Ed begins to lead us down the trench line.//
+“So then, what’s it this time? Another drill? Man, it’s only been a day since the last one… I swear they’re gonna have a mutiny in the week at this rate!”
+
+“Not this time, I think,” //Ed says,//
+“Haven’t you heard the rumors? I swear it’s been all anyone can talk about in the past few days!”
+
+//At this I stared at him for a few moments, processing what Ed had just told me.//
+“Wait… You don’t mean...?”
+
+
+[[Continue|PreBattle3]] 
+
+:: PreBattle3
+//Edward nods.//
+“Yup, seems like today is the big push. Apparently, the quartermaster started handing out an additional rum ration to everyone so that pretty much confirms it.”
+
+//Suddenly he sticks his arm out, stopping me in my tracks.//
+“Here, give me moment,” //Ed says, unslinging his rifle.//
+
+“If we’re going to battle, then I better make sure the Lee-Enfield is in working order, don’t you think?”
+//He says nonchalantly, working the bolt of his rifle.//
+
+How will Willie respond
+[[“…How are y’all so calm about all this Ed?” I ask. | PreBattleBranch1]]
+[[“…How are y’all so calm about all this Ed?” I ask. | PreBattleBranch2]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:: Passage1
+//Open on the ending of the last scene. As the sound of the massive opening artillery strike tapers off, the Sergeant blows the whistle to signal the beginning of the assault.//
+
+SERGEANT: Come men, OVER THE TOP!
+
+//Willie and Edward scramble from their position and begin sprinting out into no mans land. Machine gun fire whizzes through the air as men to either side of them suddenly drop dead. Looking for cover, they duck into a nearby crater.//
+
+EDWARD: Willie, we have to keep moving!
+
+WILLIE: Right!
+
+[[Follow Ed|Passage2]]
+
+
+
+
+
+
+:: Passage2
+//Suddenly, both hear a panicked screaming to their side, and look to find a soldier cowering in a fetal position in a shell hole a few dozen meters to their left.//
+
+EDWARD: Goddamn rookies. C’mon Will, we have to move up!
+
+WILLIE: But… We shouldn’t just abandon him here, right?
+
+EDWARD: What, are you going to risk your life to try and calm him down? So he could, what, get shot a few minutes later? He’s a lost cause, we need to move on! 
+
+
+What does Willie do?
+
+[[Help the panicked soldier|A1 - Help the Soldier]]
+[[Keep moving with Edward|B1 - Keep Moving with Edward]]
+
+
+
+/* Senario 1 */
+
+:: A1 - Help the Soldier
+//Willie picks himself up and prepares to lift himself out of the trench.//
+
+EDWARD: …Wait, what are you doing you idiot?!
+
+WILLIE: I’m not just going to leave a comrade behind!
+
+EDWARD //grimacing//: Eugh… Fine, it’s your funeral.
+
+[[Move to the Soldier|A1.1]]
