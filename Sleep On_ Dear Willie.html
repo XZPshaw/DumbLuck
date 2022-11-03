@@ -102,13 +102,10 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
   background: #ffff;
   color: black;</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="StoryInit" tags="" position="100,100" size="100,100">/* &lt;&lt;cacheaudio &quot;title&quot; &quot;C:/Users/xiaoz/DumbLuck/xjqy.mp3&quot;&gt;&gt;
 &lt;&lt;cacheaudio &quot;music2&quot; &quot;C:/Users/xiaoz/DumbLuck/msmw.mp3&quot;&gt;&gt; */
-&lt;&lt;cacheaudio &quot;title&quot; &quot;./audio/xjqy.mp3&quot;&gt;&gt;
-&lt;&lt;cacheaudio &quot;music2&quot; &quot;./audio/msmw.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;frontline&quot; &quot;./audio/Frontline.ogg&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;whistle&quot; &quot;./audio/whistle.ogg&quot;&gt;&gt;
 &lt;&lt;set $count to 30&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="Start[stye]" tags="" position="225,100" size="100,100">[[Start Game|A2]]
-[[Test Mechanics|Mapstart]]</tw-passagedata><tw-passagedata pid="3" name="A1" tags="stye" position="350,100" size="100,100">&lt;&lt;audio &quot;title&quot; play&gt;&gt;
-&quot;It’s been three weeks since we were first stationed here around Vimy. The French and Brits have tried to kick the Germans outta this place for years, with nothing to show for it, so now they’ve turned to us to get it done. I suppose if you want to win a fight, you bring the Canadians… Life here has been miserable, weather’s been stormy, so everything has been turned into a muddy mess, though with how much our artillery has been hitting the Germans I can’t imagine that life’s going any better for them! By now the sound of it has become white noise to the rest of the infantry, but recently everyone has been abuzz with activity, [[so I have to imagine that something major is on the horizon”|A2]]</tw-passagedata><tw-passagedata pid="4" name="A2" tags="" position="475,100" size="100,100">&lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
-&lt;&lt;audio &quot;music2&quot; play&gt;&gt;
-
+[[Test Mechanics|Mapstart]]</tw-passagedata><tw-passagedata pid="3" name="A1" tags="stye" position="350,100" size="100,100">&quot;It’s been three weeks since we were first stationed here around Vimy. The French and Brits have tried to kick the Germans outta this place for years, with nothing to show for it, so now they’ve turned to us to get it done. I suppose if you want to win a fight, you bring the Canadians… Life here has been miserable, weather’s been stormy, so everything has been turned into a muddy mess, though with how much our artillery has been hitting the Germans I can’t imagine that life’s going any better for them! By now the sound of it has become white noise to the rest of the infantry, but recently everyone has been abuzz with activity, [[so I have to imagine that something major is on the horizon”|A2]]</tw-passagedata><tw-passagedata pid="4" name="A2" tags="" position="475,100" size="100,100">
 &quot;Will!”
 //A soldier yells, snapping me out of my writing. I looked up to find Private Edward, a well to do city boy and my friend, pushing through the throng of soldiers towards me.//
 
@@ -327,7 +324,9 @@ EDWARD //grimacing//: Eugh… Fine, it’s your funeral.
 “Oh, right… Of course Ed.” //I mutter.//
 
 //[[Some time later…|A9]]//
-</tw-passagedata><tw-passagedata pid="24" name="A9" tags="" position="1350,100" size="100,100">//We’re standing at attention as the Sergeant addresses our squad.// “Ahem… Well, as I’m sure you’ve all heard by now, today is the day we have been preparing for, in which we succeed where the Brits and French failed and kick the Hun from this blasted stretch of countryside for good!” //The Sergeant yells, elating a disjointed yet enthusiastic cheer from the troops.// “Yes yes, calm down… Now, before we are to be sent in, the boys in the Artillery battalions are going to hit the Krauts with a massive barrage to soften them up for us.”
+</tw-passagedata><tw-passagedata pid="24" name="A9" tags="" position="1350,100" size="100,100">&lt;&lt;audio &quot;frontline&quot; loop play&gt;&gt;
+
+//We’re standing at attention as the Sergeant addresses our squad.// “Ahem… Well, as I’m sure you’ve all heard by now, today is the day we have been preparing for, in which we succeed where the Brits and French failed and kick the Hun from this blasted stretch of countryside for good!” //The Sergeant yells, elating a disjointed yet enthusiastic cheer from the troops.// “Yes yes, calm down… Now, before we are to be sent in, the boys in the Artillery battalions are going to hit the Krauts with a massive barrage to soften them up for us.”
 
 “Bigger than this, sir?” //One soldier shouts, getting a few laughs from the crowd.//
 
@@ -340,8 +339,12 @@ EDWARD //grimacing//: Eugh… Fine, it’s your funeral.
 
 “That’s the spirit! Ha ha…”
 
+&lt;&lt;audio &quot;frontline&quot; stop&gt;&gt;
+
 //As the minutes turn to hours, the artillery barrage begins, a massive bombardment involving ever gun we have firing on the German positions ahead. In the meantime, the mood amongst the men shifted, conversations growing silent as the adrenaline kicked up by the Sergeant wore off. Some of the men seem to be silently weeping. [[But, as the sound of the artillery tapers off, the Sergeant’s shrill whistle fills the air.|A11]]//
-</tw-passagedata><tw-passagedata pid="26" name="A11" tags="" position="1600,100" size="100,100">“Come on now men, OVER THE TOP!” 
+</tw-passagedata><tw-passagedata pid="26" name="A11" tags="" position="1600,100" size="100,100">&lt;&lt;audio &quot;whistle&quot; play&gt;&gt;
+
+“Come on now men, OVER THE TOP!” 
 //The Sergeant roared. At this signal we scrambled up from our positions, sprinting from the relative safety of the trench line into No Mans Land. Despite the ferocity of our barrage, the Germans are quick to respond, answering our charge with a hail of machine gun fire. It isn’t long until their shots begin to find their targets, tearing through soldiers’ limbs as they fall to the floor, dead.//
 
 “Quick, over here!” //Ed yells at me, pointing towards a shell crater. Not wanting to die just yet, I dive into it, bullets whizzing by above me as I rest my head against the lip of the crater, [[struggling to catch my breath.|A12]]//</tw-passagedata><tw-passagedata pid="27" name="Aftermap" tags="" position="800,2200" size="100,100">A grenade lands near your feet.
