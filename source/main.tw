@@ -13,8 +13,9 @@ Sleep On, Dear Willie
 :: StoryInit
 /* <<cacheaudio "title" "C:/Users/xiaoz/DumbLuck/xjqy.mp3">>
 <<cacheaudio "music2" "C:/Users/xiaoz/DumbLuck/msmw.mp3">> */
-<<cacheaudio "title" "./audio/xjqy.mp3">>
+<!-- <<cacheaudio "title" "./audio/xjqy.mp3">> -->
 <<cacheaudio "music2" "./audio/msmw.mp3">>
+<<cacheaudio "title" "./audio/frontline.ogg">>
 <<set $count to 30>>
 
 :: Start
