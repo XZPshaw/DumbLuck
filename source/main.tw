@@ -2,7 +2,7 @@
 {
         "ifid": "5DEB5264-F5B3-4E13-AF6B-82C4A8405A24",
         "format": "SugarCube",
-	"format-version": "2.35.0",
+	    "format-version": "2.35.0",
         "start": "Start"
 }
 
@@ -24,8 +24,9 @@ Sleep On, Dear Willie
 
 :: PreBattle[stye]
 <<audio "title" play>>
+<<fadein 10s>>
 "It’s been three weeks since we were first stationed here around Vimy. The French and Brits have tried to kick the Germans outta this place for years, with nothing to show for it, so now they’ve turned to us to get it done. I suppose if you want to win a fight, you bring the Canadians… Life here has been miserable, weather’s been stormy, so everything has been turned into a muddy mess, though with how much our artillery has been hitting the Germans I can’t imagine that life’s going any better for them! By now the sound of it has become white noise to the rest of the infantry, but recently everyone has been abuzz with activity, so I have to imagine that something major is on the horizon”
-
+<</fadein>>
 [[Continue|PreBattle1]] 
 
 :: PreBattle1
@@ -256,4 +257,57 @@ EDWARD //grimacing//: Eugh… Fine, it’s your funeral.
 
 body {
   background: #ffff;
+  color: black;
 }
+
+
+
+:: Macros [script]
+
+Macro.add('fadein', {
+       tags : null,
+    handler : function () {
+
+        var $wrapper = $(document.createElement('span'));
+        var content  = this.payload[0].contents, time, delay;
+
+        if (this.args.length === 0) {
+            return this.error('no arguments given');
+        }
+        
+        time  = Util.fromCssTime(this.args[0]);
+        delay = (this.args.length > 1) ?  Util.fromCssTime(this.args[1]) : 0;
+
+        $wrapper
+            .wiki(content)
+            .addClass('macro-' + this.name)
+            .appendTo(this.output)
+            .hide()
+            .delay(delay)
+            .fadeIn(time);
+
+    }
+});
+
+Macro.add('fadeout', {
+       tags : null,
+    handler : function () {
+
+        var $wrapper = $(document.createElement('span'));
+        var content  = this.payload[0].contents, time, delay;
+
+        if (this.args.length === 0) {
+            return this.error('no arguments given');
+        }
+        
+        time  = Util.fromCssTime(this.args[0]);
+        delay = (this.args.length > 1) ?  Util.fromCssTime(this.args[1]) : 0;
+
+        $wrapper
+            .wiki(content)
+            .addClass('macro-' + this.name)
+            .appendTo(this.output)
+            .delay(delay)
+            .fadeOut(time);
+    }
+});
