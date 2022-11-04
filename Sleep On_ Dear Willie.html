@@ -100,12 +100,91 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 	</div>
 	<tw-storydata name="Sleep On, Dear Willie" startnode="2" creator="Twine" creator-version="2.5.1" format="SugarCube" format-version="2.36.1" ifid="5DEB5264-F5B3-4E13-AF6B-82C4A8405A24" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">body {
   background: #ffff;
-  color: black;</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="StoryInit" tags="" position="100,100" size="100,100">/* &lt;&lt;cacheaudio &quot;title&quot; &quot;C:/Users/xiaoz/DumbLuck/xjqy.mp3&quot;&gt;&gt;
+  color: black;</style><script role="script" id="twine-user-script" type="text/twine-javascript">// <<fadein>> macro
+Macro.add('fadein', {
+       tags : null,
+    handler : function () {
+
+        var $wrapper = $(document.createElement('span'));
+        var content  = this.payload[0].contents, time, delay;
+
+        if (this.args.length === 0) {
+            return this.error('no arguments given');
+        }
+        
+        time  = Util.fromCssTime(this.args[0]);
+        delay = (this.args.length > 1) ?  Util.fromCssTime(this.args[1]) : 0;
+
+        $wrapper
+            .wiki(content)
+            .addClass('macro-' + this.name)
+            .appendTo(this.output)
+            .hide()
+            .delay(delay)
+            .fadeIn(time);
+
+    }
+});
+
+// <<fadeout>> macro
+Macro.add('fadeout', {
+       tags : null,
+    handler : function () {
+
+        var $wrapper = $(document.createElement('span'));
+        var content  = this.payload[0].contents, time, delay;
+
+        if (this.args.length === 0) {
+            return this.error('no arguments given');
+        }
+        
+        time  = Util.fromCssTime(this.args[0]);
+        delay = (this.args.length > 1) ?  Util.fromCssTime(this.args[1]) : 0;
+
+        $wrapper
+            .wiki(content)
+            .addClass('macro-' + this.name)
+            .appendTo(this.output)
+            .delay(delay)
+            .fadeOut(time);
+
+    }
+});
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////
+/*for meter/progress bar*/
+;!function(){"use strict";var t=!0,e=!1,s=!1,i={full:"#2ECC40",empty:"#FF4136",back:"#DDDDDD",height:"12px",width:"180px",animate:400,easing:"swing",text:"#111111",label:"",align:"center"},n=["center","left","right"],r=["swing","linear"];function a(t,e){return t&&"string"==typeof t&&(t=t.toLowerCase().trim())?t:e||""}function o(t){return t<.5?2*t*t:(4-2*t)*t-1}function l(t,e){if(!(this instanceof l))return new l(t,e);var s=clone(i);this.settings=Object.assign(s,t),this.settings.align=a(this.settings.align),this.settings.easing=a(this.settings.easing),n.includes(this.settings.align)||(this.settings.align="center"),r.includes(this.settings.easing)||(this.settings.easing="swing"),e=Number(e),Number.isNaN(e)&&(e=1),e=Math.clamp(e,0,1),this.value=e;var h=$(document.createElement("div")).addClass("chapel-meter").attr({"data-val":e,"data-label":this.settings.label}).css({position:"relative","background-color":this.settings.back,height:this.settings.height,width:this.settings.width,overflow:"hidden"}),g=$(document.createElement("div")).addClass("meter-label").css({top:0,right:0,"font-size":this.settings.height,"font-weight":"bold","line-height":"100%",width:"100%",height:"100%","vertical-align":"middle","text-align":this.settings.align,color:this.settings.text,"z-index":1,position:"relative",bottom:"100%"}).wiki(this.settings.label).appendTo(h),u=$(document.createElement("div")).addClass("meter-top").css({"background-color":this.settings.full,opacity:o(this.value),width:"100%",height:"100%","z-index":0}),c=$(document.createElement("div")).addClass("meter-bottom").css({position:"absolute",top:0,left:0,"background-color":this.settings.empty,opacity:1,width:100*this.value+"%",height:"100%","z-index":0}).append(u).appendTo(h);this.$element=h,this.$bars={top:u,bottom:c},this.$label=g,g.css("font-size",parseInt(h.css("height"),10)<parseInt($(".passage").css("font-size"),10)?h.css("height"):$(".passage").css("font-size")),g.css("line-height",h.css("height"))}Object.assign(l,{_list:new Map,is:function(t){return t instanceof l},has:function(t){return l._list.has(t)&&l.is(l._list.get(t))},get:function(t){return l.has(t)?l._list.get(t):null},del:function(t){l.has(t)&&l._list.delete(t)},add:function(t,s,i){if(!l.has(t)||e){Object.assign(s,{id:t});var n=new l(s,i);return l._list.set(t,n),n}console.error('Meter "'+t+'" already exists.')},_emit:function(t,e){l.is(t)&&t.$element.trigger({type:":"+e,meter:t})}}),Object.assign(l.prototype,{constructor:l,_label:function(t){var e=this;function s(){e.$label.empty().wiki(e.settings.label),e.$label.css("font-size",parseInt(e.$element.css("height"),10)<parseInt(e.$element.parent().css("font-size"),10)?e.$element.css("height"):e.$element.parent().css("font-size")),e.$label.css("line-height",e.$element.css("height"))}return t?setTimeout(s,Engine.minDomActionDelay):s(),this},_width:function(){var t=this;return this.$bars.bottom.animate({width:100*this.value+"%"},this.settings.animate,this.settings.easing,(function(){l._emit(t,"meter-animation-complete")})),this},_color:function(){return this.$bars.top.animate({opacity:o(this.value)},this.settings.animate,this.settings.easing),this},animate:function(){return l._emit(this,"meter-animation-start"),this._color()._width()._label()},val:function(t){return void 0!==t&&(t=Number(t),Number.isNaN(t)&&(t=1),t=Math.clamp(t,0,1),this.value=t,this.animate()),this.value},options:function(t){return t&&"object"==typeof t&&Object.assign(this.settings,t),this.settings},unwrap:function(){return this.$element[0]},place:function(t,e){var s=$(document.createElement("span"));return t instanceof jQuery||(t=$(t)),t[0]||console.warn("meter#place() -> no valid target"),e&&"object"==typeof e&&(e.classes&&(Array.isArray(e.classes)||"string"==typeof e.classes)&&s.addClass(e.classes),e.attr&&"object"==typeof e.attr&&s.attr(e.attr)),t.append(s.append(this.$element)),this._label(!0),this},on:function(t,e){return"function"!=typeof e?this:t&&"string"==typeof t&&t.trim()?(t=t.split(" ").map((function(t){return(t=t.split(".")[0])+".userland"})).join(" "),this.$element.on(t,e),this):this},one:function(t,e){return"function"!=typeof e?this:t&&"string"==typeof t&&t.trim()?(t=t.split(" ").map((function(t){return(t=t.split(".")[0])+".userland"})).join(" "),this.$element.one(t,e),this):this},off:function(t){return t=t&&"string"==typeof t&&t.trim()?t.split(" ").map((function(t){return(t=t.split(".")[0])+".userland"})).join(" "):".userland",this.$element.off(t),this},click:function(t,e){return this.$element.ariaClick(t,e),this},clone:function(){return new l(this.settings,this.value)},toJSON:function(){return JSON.reviveWrapper("new setup.Meter("+JSON.stringify(this.settings)+", "+this.value+")")}}),setup.Meter=l,t&&(window.Meter=window.Meter||l),Macro.add("newmeter",{tags:["colors","sizing","animation","label"],handler:function(){if(State.length>0&&!s)return this.error("The `<<newmeter>>` macro must be called in your `StoryInit` special passage. Seriously. No excuses. --Love, Chapel");if(this.args.length<1)return this.error("The `<<newmeter>>` macro requires at least one argument: a meter name.");var t=this.args[0],i=null,n=null,r=null,a=null;if("string"!=typeof t)return this.error("Invalid meter name.");if(t=t.trim(),l.has(t)&&!e)return this.error('Cannot clobber the existing meter "'+t+'".');this.payload.length&&(i=this.payload.find((function(t){return"colors"===t.name})),n=this.payload.find((function(t){return"sizing"===t.name})),r=this.payload.find((function(t){return"animation"===t.name})),a=this.payload.find((function(t){return"label"===t.name})));var o={};if(i){if(!i.args.length)return this.error("No arguments passed to the `<<colors>>` tag.");switch(i.args.length){case 1:o.empty=i.args[0],o.full="transparent";break;case 2:o.full=i.args[0],o.empty=i.args[1];break;default:o.full=i.args[0],o.empty=i.args[1],o.back=i.args[2]}}if(n){if(!n.args.length)return this.error("No arguments passed to the `<<sizing>>` tag.");o.width=n.args[0],n.args[1]&&(o.height=n.args[1])}if(r){if(!r.args.length)return this.error("No arguments passed to the `<<animation>>` tag.");if("boolean"!=typeof r.args[0]||r.args[0]){if("string"!=typeof r.args[0])return this.error("The argument to the `<<animation>>` tag should be `true`, `false`, or a valid CSS time value.");o.animate=Util.fromCssTime(r.args[0])}else o.animate=0;r.args[1]&&["swing","linear"].includes(r.args[1])&&(o.easing=r.args[1])}if(a){var h=a.args[0];if(!h||"string"!=typeof h)return this.error("The labelText argument for the `<<label>>` tag is required.");o.label=h.trim(),a.args[1]&&"string"==typeof a.args[1]&&(o.text=a.args[1]),a.args[2]&&"string"==typeof a.args[2]&&(o.align=a.args[2])}l.add(t,o,this.args[1])}}),Macro.add("showmeter",{handler:function(){if(this.args.length<1)return this.error("This macro requires at least one argument: the meter's name.");var t=this.args[0];if("string"!=typeof t)return this.error("Invalid meter name.");t=t.trim();var e=l.get(t);if(!e||!l.is(e))return this.error('The meter "'+t+'" does not exist.');"number"==typeof this.args[1]&&e.val(this.args[1]),e.place(this.output,{classes:"macro-"+this.name,attr:{id:"meter-"+Util.slugify(t)}})}}),Macro.add("updatemeter",{handler:function(){if(this.args.length<2)return this.error("This macro requires two arguments: the meter's name and a value.");var t=this.args[0];if("string"!=typeof t)return this.error("Invalid meter name.");t=t.trim();var e=l.get(t);if(!e||!l.is(e))return this.error('The meter "'+t+'" does not exist.');e.val(this.args[1])}})}();
+
+////////////////////////////////////////////////////////////////
+/*for conditional story jump */
+;!function(){"use strict";var n=["a",":button",'*[role="button"]',".continue-macro-ignore","#ui-bar","#ui-dialog"],t=0;function o(){$(document).on("click.continue-macro keyup.continue-macro",n.join(", "),(function(n){n.stopPropagation()}))}function e(){if(State.length>0)return!1;var t=[].slice.call(arguments).flatten();return n=n.concat(t),!0}function c(n,o){var e=function(){var n="."+Date.now().toString(36)+"-"+t;return t++,n}();if(o&&"function"==typeof o){var c="click.continue-macro"+e;n&&(c=c+" keyup.continue-macro"+e),$(document).one(c,(function(){o.call(),$(document).off(e)}))}}prehistory["%%continue-expiration"]=function(){t=0},$(document).one(":passagerender",(function(){o()})),Macro.add("ignore",{handler:function(){if(!e(this.args))return this.error("the <<ignore>> macro should only be run from StoryInit or equivalent.")}}),Macro.add("cont",{tags:null,handler:function(){var n,t=this.args.includes("append"),o=this.args.includesAny("key","keypress","press","button"),e=this.payload[0].contents;t&&(n=$(document.createElement("span")).addClass("macro-"+this.name).appendTo(this.output)),c(o,this.createShadowWrapper((function(){t&&n&&n instanceof $?n.wiki(e):$.wiki(e)})))}}),setup.cont=c,setup.cont.ignore=e,setup.cont.reset=function(){var t=[].slice.call(arguments).flatten();n=n.concat(t),$(document).off(".continue-macro"),o()},window.cont=window.cont||setup.cont}();
+</script><tw-passagedata pid="1" name="StoryInit" tags="" position="50,25" size="100,100">/* &lt;&lt;cacheaudio &quot;title&quot; &quot;C:/Users/xiaoz/DumbLuck/xjqy.mp3&quot;&gt;&gt;
 &lt;&lt;cacheaudio &quot;music2&quot; &quot;C:/Users/xiaoz/DumbLuck/msmw.mp3&quot;&gt;&gt; */
 &lt;&lt;cacheaudio &quot;frontline&quot; &quot;./audio/Frontline.ogg&quot;&gt;&gt;
-&lt;&lt;cacheaudio &quot;whistle&quot; &quot;./audio/whistle.ogg&quot;&gt;&gt;
-&lt;&lt;set $count to 30&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="Start[stye]" tags="" position="225,100" size="100,100">[[Start Game|A2]]
-[[Test Mechanics|Mapstart]]</tw-passagedata><tw-passagedata pid="3" name="A1" tags="stye" position="350,100" size="100,100">&quot;It’s been three weeks since we were first stationed here around Vimy. The French and Brits have tried to kick the Germans outta this place for years, with nothing to show for it, so now they’ve turned to us to get it done. I suppose if you want to win a fight, you bring the Canadians… Life here has been miserable, weather’s been stormy, so everything has been turned into a muddy mess, though with how much our artillery has been hitting the Germans I can’t imagine that life’s going any better for them! By now the sound of it has become white noise to the rest of the infantry, but recently everyone has been abuzz with activity, [[so I have to imagine that something major is on the horizon”|A2]]</tw-passagedata><tw-passagedata pid="4" name="A2" tags="" position="475,100" size="100,100">
+&lt;&lt;cacheaudio &quot;whistle&quot; &quot;./audio/audio_whistle.ogg&quot;&gt;&gt;
+&lt;&lt;set $count to 30&gt;&gt;
+
+
+/*initialization of progress bar*/
+&lt;&lt;set $progress to 0, $maxProgress to 100&gt;&gt;
+&lt;&lt;newmeter &#39;progress&#39; 1&gt;&gt;
+    &lt;&lt;sizing &#39;220px&#39;&gt;&gt;
+    &lt;&lt;label &#39;$progress&#39;&gt;&gt;
+&lt;&lt;/newmeter&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="Start[stye]" tags="" position="225,25" size="100,100">[[Start Game|A1]]
+[[Test Mechanics|Mapstart]]</tw-passagedata><tw-passagedata pid="3" name="A1" tags="stye" position="350,25" size="100,100">
+&lt;&lt;fadein 8s&gt;&gt;
+
+												&#39;&#39;April 9th, 1917&#39;&#39;	
+
+&quot;It’s been three weeks since we were first stationed here around Vimy. The French and Brits have tried to kick the Germans outta this place for years, with nothing to show for it, so now they’ve turned to us to get it done. I suppose if you want to win a fight, you bring the Canadians… Life here has been miserable, weather’s been stormy, so everything has been turned into a muddy mess, though with how much our artillery has been hitting the Germans I can’t imagine that life’s going any better for them! By now the sound of it has become white noise to the rest of the infantry, but recently everyone has been abuzz with activity, [[so I have to imagine that something major is on the horizon”|A2]]
+
+&lt;&lt;/fadein&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="A2" tags="" position="475,25" size="100,100">
 &quot;Will!”
 //A soldier yells, snapping me out of my writing. I looked up to find Private Edward, a well-to-do city boy and my friend, pushing through the throng of soldiers towards me.//
 
@@ -124,7 +203,7 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 “Haven’t you heard the rumors? I swear it’s been all anyone can talk about in the past few days!”
 
 //At this I stared at him for a few moments, processing what Ed had just told me.//
-[[“Wait… You don’t mean...?”|A3]]</tw-passagedata><tw-passagedata pid="5" name="A3" tags="" position="600,100" size="100,100">//Edward nods.//
+[[“Wait… You don’t mean...?”|A3]]</tw-passagedata><tw-passagedata pid="5" name="A3" tags="" position="600,25" size="100,100">//Edward nods.//
 “Yup, seems like today is the big push. Apparently, the quartermaster started handing out an additional rum ration to everyone so that pretty much confirms it.”
 
 //Suddenly he sticks his arm out, stopping me in my tracks.//
@@ -134,7 +213,8 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 //He says nonchalantly, working the bolt of his rifle.//
 
 How will Willie respond
-[[…How are y’all so calm about all this Ed? |A4]]</tw-passagedata><tw-passagedata pid="6" name="A4" tags="" position="725,100" size="100,100">“…Hmm? Now what do you mean by that?” 
+[[…How are y’all so calm about all this Ed? |A4]]</tw-passagedata><tw-passagedata pid="6" name="A4" tags="" position="725,25" size="100,100">“…Hmm? Now what do you mean by that?” 
+
 //Ed says, focusing on his weapon//
 
 “Well, if you’re right, and I reckon you are, in a few hours we’ll be chargin’ the goddamn Kraut line! We’ve been hitting them with the big guns for weeks and they haven’t budged! Are ya telling me the idea of chargin’ into that doesn’t scare ya even a little bit?” //I respond, a touch of exacerbation entering my voice.//
@@ -151,10 +231,13 @@ How will Willie respond
 “Appears so,”
 //Edward agrees.//
 
-[[“Still, we better get our heads down, just in case.”|A5]]</tw-passagedata><tw-passagedata pid="7" name="A5" tags="" position="850,100" size="100,100">//While we hunker down, however, some aren’t so prepared. Specifically, one boy catches my eye, can’t be older than 17, tucked into a fetal position and babbling to himself not a few feet away from us. When Ed notices him too, he chuckles to himself.//
+[[“Still, we better get our heads down, just in case.”|A5]]</tw-passagedata><tw-passagedata pid="7" name="A5" tags="" position="950,75" size="100,100">//While we hunker down, however, some aren’t so prepared. Specifically, one boy catches my eye, can’t be older than 17, tucked into a fetal position and babbling to himself not a few feet away from us. When Ed notices him too, he chuckles to himself.//
 
 “Heh, goddamn rookies… Must have only gotten here a week ago if this is all that it takes to freak him out.”
-//Edward says, a slight scowl betraying his lighthearted tone. Before I could respond however, the shells began to hit, drowning out any conversation in a cacophony of noise. Luckily, the bombardment only lasted a few minutes before subsiding, whereupon everyone returned to their normal duties as if nothing had happened, barring the young recruit, who had refused to move from his position.//
+//Edward says, a slight scowl betraying his lighthearted tone. //
+
+//Before I could respond however, the shells began to hit, drowning out any conversation in a cacophony of noise. Luckily, the bombardment only lasted a few minutes before subsiding, whereupon everyone returned to their normal duties as if nothing had happened, barring the young recruit, who had refused to move from his position.//
+
 “Hmph, poor kid, shouldn’t even be here…”
 //Ed pauses for a second, his face blank, before once again cracking a grin and slapping me on the shoulder.//
 “Well, up and at’em, lets get a move on.” 
@@ -279,7 +362,7 @@ EDWARD //grimacing//: Eugh… Fine, it’s your funeral.
 [[Move North|Mapmm]]
 [[Trigger Trap|Maptrap]]
 &lt;&lt;/if&gt;&gt;
-</tw-passagedata><tw-passagedata pid="16" name="A5.A1" tags="" position="225,250" size="100,100">“Well, alright… Where are we going, anyway?” //I ask, walking briskly down the line with Ed, pushing an ever-thickening throng of soldiers out of the way.//
+</tw-passagedata><tw-passagedata pid="16" name="A5.A1" tags="" position="575,250" size="100,100">“Well, alright… Where are we going, anyway?” //I ask, walking briskly down the line with Ed, pushing an ever-thickening throng of soldiers out of the way.//
 
 “Well, I told you, didn’t I? Free rum from the quartermaster! I’m not going to let either of us miss out on that.” //Ed answers with a laugh.//
 
@@ -289,7 +372,7 @@ EDWARD //grimacing//: Eugh… Fine, it’s your funeral.
 &lt;&lt;set $metthomas to 0&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="A5.B1" tags="" position="225,375" size="100,100">“Hey, I’ll catch up with you,” //I tell Edward, //“I’m gonna try and help out that rookie there.”
 
 “Eh, be my guest. You can find me at the quartermaster’s station when you’re done.” //Ed responds, already making his way down the trench.//
-//As he promptly vanishes from sight, I turn my attention to the panic-stricken rookie, who hasn’t moved an inch since the bombardment finished. Despite the crowded state of the trench, everyone is making a concerted effort to avoid the panicking soldier, [[making it surprisingly easy to reach him.|A5.B2]]//</tw-passagedata><tw-passagedata pid="18" name="A6" tags="" position="975,100" size="100,100">“So…” //Ed says after taking a long sip,// “Why did you sign up to the Army anyway?”
+//As he promptly vanishes from sight, I turn my attention to the panic-stricken rookie, who hasn’t moved an inch since the bombardment finished. Despite the crowded state of the trench, everyone is making a concerted effort to avoid the panicking soldier, [[making it surprisingly easy to reach him.|A5.B2]]//</tw-passagedata><tw-passagedata pid="18" name="A6" tags="" position="1100,150" size="100,100">“So…” //Ed says after taking a long sip,// “Why did you sign up to the Army anyway?”
 
 “Hmm? Now what makes you think I didn’t do it for King and Country?” //I answer with a exaggerated shock.//
 
@@ -303,7 +386,7 @@ EDWARD //grimacing//: Eugh… Fine, it’s your funeral.
 “AH-WHA-WHO… Who are you?” //The rookie asks, hyperventilating as he recovers from his ordeal.//
 
 “My name’s William, I’m a Private with this here division. How about you?” //[[I respond, trying to give him some space.|A5.B3]]//
-</tw-passagedata><tw-passagedata pid="20" name="A5.B3" tags="" position="475,375" size="100,100">“…Thomas. M-my names Thomas…” //he responds.//
+</tw-passagedata><tw-passagedata pid="20" name="A5.B3" tags="" position="500,375" size="100,100">“…Thomas. M-my names Thomas…” //he responds.//
 //As a minute or two passes and he can compose himself, Thomas looks up at me, a confused expression on his face.// “So… Why did you help me?” //He questions me.//
 
 “Hmm? Well… it seemed like you needed some help, and I had nothing better to do so…” //I answer, a response which seems to do nothing to alleviate his confusion.//
@@ -312,26 +395,44 @@ EDWARD //grimacing//: Eugh… Fine, it’s your funeral.
 
 “Its no big deal,” I say. “…Well if you’re good to go, I would like to meet back up with my friend.”
 
-“Oh yeah I’ll be fine, you’ve already done enough… so I’ll see you around I suppose.” //Thomas says, [[waving me off as I get back to my feet.|A5.B4]]//</tw-passagedata><tw-passagedata pid="21" name="A5.B4" tags="" position="600,375" size="100,100">“Yeah, I’ll see you around… Now where the hell did Edward go?” //I inquire, walking down the trench I saw him disappear into.//
+“Oh yeah I’ll be fine, you’ve already done enough… so I’ll see you around I suppose.” //Thomas says, [[waving me off as I get back to my feet.|A5.B4]]//</tw-passagedata><tw-passagedata pid="21" name="A5.B4" tags="" position="650,425" size="100,100">“Yeah, I’ll see you around… Now where the hell did Edward go?” //I inquire, walking down the trench I saw him disappear into.//
 
 //A few minutes later I find him at the quartermasters, just like he said. [[When he notices me he hands me a cup of rum he had been saving for me, which I greedily snatch from his grip.|A6]]//
-&lt;&lt;set $metthomas to 1&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="A7" tags="" position="1100,100" size="100,100">“No, none of those!” //I answer, shaking my head at his last guess in particular.// “God, I feel for the poor soul who can’t find a better paying job than this… No, I love my family, love my home, but I felt stuck there, y’know? I didn’t want to be trapped in some podunk prairie town, so I looked for a way out, to see the world, y’know? And what with a war going on, I signed up as soon as I could! It’s not like I came here cause I wanted to kill the Germans, they seem like a fine people. I suppose I just wanted an excuse to leave home and not feel guilty about it. Never really thought I might not come back till I got here…”
+&lt;&lt;set $metthomas to 1&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="A7" tags="" position="1225,150" size="100,100">“No, none of those!” //I answer, shaking my head at his last guess in particular.// “God, I feel for the poor soul who can’t find a better paying job than this… No, I love my family, love my home, but I felt stuck there, y’know? I didn’t want to be trapped in some podunk prairie town, so I looked for a way out, to see the world, y’know? And what with a war going on, I signed up as soon as I could! It’s not like I came here cause I wanted to kill the Germans, they seem like a fine people. I suppose I just wanted an excuse to leave home and not feel guilty about it. Never really thought I might not come back till I got here…”
 
-//Ed sits there for a second, nodding slightly.// [[“…Hmm, so that letter you were writing, was that for your family?”|A8]]</tw-passagedata><tw-passagedata pid="23" name="A8" tags="" position="1225,100" size="100,100">“Oh, yeah! What with all the activity I haven’t had the chance to write them back for nigh on a month now… Gotta thank’em for all the care packages, y’know? And if I don’t let Ma know I’m okay soon I’m afraid she might get a heart attack from the worry.”
+//Ed sits there for a second, nodding slightly.// [[“…Hmm, so that letter you were writing, was that for your family?”|A8]]</tw-passagedata><tw-passagedata pid="23" name="A8" tags="" position="1350,150" size="100,100">“Oh, yeah! What with all the activity I haven’t had the chance to write them back for nigh on a month now… Gotta thank’em for all the care packages, y’know? And if I don’t let Ma know I’m okay soon I’m afraid she might get a heart attack from the worry.”
+
 
 //After a few moments of contemplation, Ed swings back the remainder of his booze and pats me on the shoulder.// “Well, I’m glad to hear you got some people who care back home. In a place like this, a man without something to go back to might never be able to leave it…” //He says, seemingly lost in thought for a moment before refocusing back on me.// “…Well, finish up your drink. If we aren’t at our post soon, I think the Sergeant will save the Fritz the trouble and shoot us himself!”
 
 “Oh, right… Of course Ed.” //I mutter.//
 
 //[[Some time later…|A9]]//
-</tw-passagedata><tw-passagedata pid="24" name="A9" tags="" position="1350,100" size="100,100">&lt;&lt;audio &quot;frontline&quot; loop play&gt;&gt;
+</tw-passagedata><tw-passagedata pid="24" name="A9" tags="" position="1475,150" size="100,100">&lt;&lt;audio &quot;frontline&quot; loop play&gt;&gt;
 
-//We’re standing at attention as the Sergeant addresses our squad.// “Ahem… Well, as I’m sure you’ve all heard by now, today is the day we have been preparing for, in which we succeed where the Brits and French failed and kick the Hun from this blasted stretch of countryside for good!” //The Sergeant yells, elating a disjointed yet enthusiastic cheer from the troops.// “Yes yes, calm down… Now, before we are to be sent in, the boys in the Artillery battalions are going to hit the Krauts with a massive barrage to soften them up for us.”
+//We’re standing at attention as the Sergeant addresses our squad.//
+“Ahem… Well, as I’m sure you’ve all heard by now, today is the day we have been preparing for, in which we succeed where the Brits and French failed and kick the Hun from this blasted stretch of countryside for good!”
+//The Sergeant yells, elating a disjointed yet enthusiastic cheer from the troops.// 
+“Yes yes, calm down… Now, before we are to be sent in, the boys in the Artillery battalions are going to hit the Krauts with a massive barrage to soften them up for us.”
 
 “Bigger than this, sir?” //One soldier shouts, getting a few laughs from the crowd.//
 
-“Apparently!” //the Sergeant responds,// “I, for one, am excited to see what they come up with. In the meantime, however, we are to set up on the line here. You will know when to attack when you hear my whistle. [[Now men, to your positions!|A10]]”
-</tw-passagedata><tw-passagedata pid="25" name="A10" tags="" position="1475,100" size="100,100">//The squad breaks from formation, scrambling along the line as Edward and I set up alongside each other, rifles at the ready.//
+“Apparently!” //the Sergeant responds,// “I, for one, am excited to see what they come up with. In the meantime, however, we are to set up on the line here. You will know when to attack when you hear my whistle. Now men, to your positions!”
+
+
+
+&lt;&lt;set $progress to 0, $maxProgress to 100&gt;&gt;
+To Position: &lt;&lt;showmeter &#39;progress&#39; `$progress / $maxProgress`&gt;&gt;
+
+&lt;&lt;link &#39;Move to your positions.&#39;&gt;&gt;
+    &lt;&lt;set $progress to Math.clamp($progress + 25, 0, $maxProgress)&gt;&gt;
+    &lt;&lt;if $progress == 100&gt;&gt;
+    	&lt;&lt;goto &#39;A10&#39;&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+    &lt;&lt;updatemeter &#39;progress&#39; `$progress / $maxProgress`&gt;&gt;
+&lt;&lt;/link&gt;&gt;
+
+</tw-passagedata><tw-passagedata pid="25" name="A10" tags="" position="1600,150" size="100,100">//The squad breaks from formation, scrambling along the line as Edward and I set up alongside each other, rifles at the ready.//
 
 “Well then Will, ready to fight?” 
 
@@ -342,7 +443,8 @@ EDWARD //grimacing//: Eugh… Fine, it’s your funeral.
 &lt;&lt;audio &quot;frontline&quot; stop&gt;&gt;
 
 //As the minutes turn to hours, the artillery barrage begins, a massive bombardment involving every gun we have firing on the German positions ahead. In the meantime, the mood amongst the men shifted, conversations growing silent as the adrenaline kicked up by the Sergeant wore off. Some of the men seem to be silently weeping. [[But, as the sound of the artillery tapers off, the Sergeant’s shrill whistle fills the air.|A11]]//
-</tw-passagedata><tw-passagedata pid="26" name="A11" tags="" position="1600,100" size="100,100">&lt;&lt;audio &quot;whistle&quot; play&gt;&gt;
+</tw-passagedata><tw-passagedata pid="26" name="A11" tags="" position="1725,150" size="100,100">&lt;&lt;audio &quot;whistle&quot; play&gt;&gt;
+
 
 “Come on now men, OVER THE TOP!” 
 //The Sergeant roared. At this signal we scrambled up from our positions, sprinting from the relative safety of the trench line into No Mans Land. Despite the ferocity of our barrage, the Germans are quick to respond, answering our charge with a hail of machine gun fire. It isn’t long until their shots begin to find their targets, tearing through soldiers’ limbs as they fall to the floor, dead.//
@@ -407,11 +509,15 @@ You dive behind cover
 &lt;&lt;else&gt;&gt;
 [[Move West|Maptm]]
 [[Move South|Mapmr]]
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="36" name="A12" tags="" position="1725,100" size="100,100">“Hmph, a few meters in and we’re already pinned down. Typical.” //Edward huffed. Definitely not disagreeing with him there. Wanting to get a lay of the land, I glance over the edge of the crater we were huddled in, scanning for any way we could move forward, but instead finding a field of churned up mud, interspersed with the bodies of those soldiers who were still trying to push ahead, along with anyone unlucky enough to have caught a bullet, or were victim to an artillery shell. Soon though my gaze fixes on one soldier huddled behind a boulder, tucked into a fetal position. Suddenly I realize that this is the soldier I &lt;&lt;if $metthomas is 1&gt;&gt; had helped before, Thomas. &lt;&lt;else&gt;&gt; saw having a panic attack earlier.&lt;&lt;/if&gt;&gt; Following my gaze, Will scoffs at the sight of the panicking soldier.// “Goddamn rookies,” //He says,// “Now c’mon Will, we have to move up!” 
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="36" name="A12" tags="" position="1950,150" size="100,100">“Hmph, a few meters in and we’re already pinned down. Typical.” 
+//Edward huffed. Definitely not disagreeing with him there. Wanting to get a lay of the land, I glance over the edge of the crater we were huddled in, scanning for any way we could move forward, but instead finding a field of churned up mud, interspersed with the bodies of those soldiers who were still trying to push ahead, along with anyone unlucky enough to have caught a bullet, or were victim to an artillery shell. Soon though my gaze fixes on one soldier huddled behind a boulder, tucked into a fetal position. Suddenly I realize that this is the soldier I &lt;&lt;if $metthomas is 1&gt;&gt; had helped before, Thomas. &lt;&lt;else&gt;&gt; saw having a panic attack earlier.&lt;&lt;/if&gt;&gt; 
+
+Following my gaze, Will scoffs at the sight of the panicking soldier.// “Goddamn rookies,” //He says,// “Now c’mon Will, we have to move up!” 
 
 “But… We shouldn’t just abandon him there, right?” I ask.
 
-“What, are you going to risk your life to try and calm him down?” //Ed laughs.// “Look at him, he’s a lost cause! Even if you succeed, he’ll just get shot a few minutes later. Now come on!”
+“What, are you going to risk your life to try and calm him down?” //Ed laughs.// 
+“Look at him, he’s a lost cause! Even if you succeed, he’ll just get shot a few minutes later. Now come on!”
 
 [[Help the panicked soldier|A12.A1]]
 [[Keep moving up with Edward|A12.B1]]</tw-passagedata><tw-passagedata pid="37" name="A12.A1" tags="" position="225,525" size="100,100">//Ignoring Ed’s words, I pick myself up and prepare to sprint over to Thomas position.//
@@ -421,6 +527,7 @@ You dive behind cover
 “I’m not just going to leave a comrade behind!” //I yell back.//
 
 “Fine… It’s your funeral” //Ed replies through a grimace, before climbing out of the crater and continuing towards the German line alone.//
+
 //A few minutes later, I take a deep breath and sprint out of cover, running towards Thomas. I reach him in a few seconds, &lt;&lt;if $metthomas is 1&gt;&gt;[[diving next to him.|A12.A1.A1]]&lt;&lt;else&gt;&gt;[[diving next to him.|A12.A1.B1]]&lt;&lt;/if&gt;&gt;// 
 </tw-passagedata><tw-passagedata pid="38" name="A12.B1" tags="" position="225,1175" size="100,100">//After a deep sigh, I respond,// “I suppose you have a point…”
 
@@ -452,12 +559,15 @@ You dive behind cover
 “And you think we have the opportunity to think about that?” //Ed snaps at me,// “For gods’ sake we’re soldiers Willie, not philosophers. We’re here to kill the enemy, not coddle them. Now, lets go and find the Sergeant, find out who else survived.”
 
 “…Alright Ed.” //With that we exit the bunker, leaving the body of the German soldier behind.//
-</tw-passagedata><tw-passagedata pid="46" name="A12.B5.B1" tags="" position="350,1425" size="100,100">//Not knowing how to respond, I instead step back, letting Ed continue to give the dying German a few more kicks. Suddenly, he looks up at Ed and screams,// “Ihr… Ihr Schweine!” //Reaching down to his waist, he pulls out a pistol and begins firing at Ed, his shots going wide.//
+</tw-passagedata><tw-passagedata pid="46" name="A12.B5.B1" tags="" position="350,1425" size="100,100">//Not knowing how to respond, I instead step back, letting Ed continue to give the dying German a few more kicks. 
+
+Suddenly, he looks up at Ed and screams,// “Ihr… Ihr Schweine!” //Reaching down to his waist, he pulls out a pistol and begins firing at Ed, his shots going wide.//
 
 “Get down, Ed!”// I scream. As he leaps out of the way, I raise my rifle, firing a shot that hits true, killing the German on the spot.//
 
 “Ah… Good shot…”// Ed mutters,// “But the fucker got me in the leg…” //Looking down, I see the damage, [[a rapidly growing bloodstain on his thigh.|A12.B5.B2]]//
-</tw-passagedata><tw-passagedata pid="47" name="A12.B5.B2" tags="" position="475,1425" size="100,100">“Don’t worry about it Will, the bullet only grazed me…” //He says, wincing through the pain.// “…and from the sudden lack of gunfire around us, I suspect we just finished securing this trench line, so how about he go and find a medic?” //With that he awkwardly pulls himself up, leaning on the wall for support before hobbling forward, [[eventually accepting my help before he falls over.|A12.B5.B3]]//</tw-passagedata><tw-passagedata pid="48" name="A12.B5.B3" tags="" position="600,1425" size="100,100">//A few hours later, we’re at an overcrowded medical camp, Ed lounging on a cot as I stand next to him, listening to the medic.// “Well, luckily the bullet did indeed only graze him, so he should be good to go after a day or so.” //He tells us.//
+</tw-passagedata><tw-passagedata pid="47" name="A12.B5.B2" tags="" position="475,1425" size="100,100">“Don’t worry about it Will, the bullet only grazed me…” //He says, wincing through the pain.// 
+“…and from the sudden lack of gunfire around us, I suspect we just finished securing this trench line, so how about he go and find a medic?” //With that he awkwardly pulls himself up, leaning on the wall for support before hobbling forward, [[eventually accepting my help before he falls over.|A12.B5.B3]]//</tw-passagedata><tw-passagedata pid="48" name="A12.B5.B3" tags="" position="600,1425" size="100,100">//A few hours later, we’re at an overcrowded medical camp, Ed lounging on a cot as I stand next to him, listening to the medic.// “Well, luckily the bullet did indeed only graze him, so he should be good to go after a day or so.” //He tells us.//
 
 “That’s great news, thanks Doc!” //I answer, relief flooding my voice.//
 
@@ -468,6 +578,7 @@ You dive behind cover
 
 “I’m here to help you!” //I answer, [[putting my hands on his shoulders.|A12.A1.B2]]//
 </tw-passagedata><tw-passagedata pid="50" name="A12.A1.A1" tags="" position="350,650" size="100,100">“JESUS, w-who the hell-” //Thomas screams once he notices me.//
+
 “Hey Tom, it’s me, Will!” //I say, trying to calm him down.//
 
 “Wuh-what? What the hell are you doing here Will?” //He asks. //
@@ -482,14 +593,49 @@ You dive behind cover
 //This apparently does nothing to help Thomas regain his composure, as he promptly starts hyperventilating.// “N-no, you idiot! What are you, blind?!! If we go that way, we die! I don’t wanna be here, I wanna go home! N-now get the hell out of my way!” //He screams, trying to push past me and, apparently, run away.//
 
 [[Try and restain Thomas|A12.A1.(A2,B2).A1]]
-[[Let him go|A12.A1.(A2,B2).B1]]</tw-passagedata><tw-passagedata pid="52" name="A12.A1.B2" tags="" position="475,775" size="100,100">“W-well //If you wanna help me, then we gotta get out of this hellhole before we all fucking die!” He screams at me, trying to shake me off him.//
+[[Let him go|A12.A1.(A2,B2).B1]]
+
+ &lt;&lt;set $seconds to 15&gt;&gt;
+
+&lt;span id=&quot;countdown&quot;&gt;$seconds&lt;/span&gt;
+&lt;&lt;silently&gt;&gt;
+    &lt;&lt;repeat 1s&gt;&gt;
+        &lt;&lt;set $seconds to $seconds - 1&gt;&gt;
+        &lt;&lt;if $seconds gt 0&gt;&gt;
+            &lt;&lt;replace &quot;#countdown&quot;&gt;&gt; $seconds &lt;&lt;/replace&gt;&gt;
+        &lt;&lt;else&gt;&gt;
+            &lt;&lt;replace &quot;#countdown&quot;&gt;&gt;&lt;&lt;/replace&gt;&gt;
+            &lt;&lt;goto &quot;A12.A1.(A2,B2).B1&quot;&gt;&gt;
+            &lt;&lt;stop&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/repeat&gt;&gt;
+&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="52" name="A12.A1.B2" tags="" position="500,750" size="100,100">“W-well //If you wanna help me, then we gotta get out of this hellhole before we all fucking die!” He screams at me, trying to shake me off him.//
 
 “Calm down Thomas,”// I tell him, refusing to let him,// “Now you gotta know that we can’t do that. If ya want to survive, we have to drive the Germans out, and that means ya need to smarten up and get out of this hole!”
 
 //This apparently does nothing to help Thomas regain his composure, as he promptly starts hyperventilating.// “N-no, you idiot! What are you, blind?!! If we go that way, we die! I don’t wanna be here, I wanna go home! N-now get the hell out of my way!” //He screams, trying to push past me and, apparently, run away.//
 
+
+Make your choice:
+
 [[Try and restain Thomas|A12.A1.(A2,B2).A1]]
-[[Let him go|A12.A1.(A2,B2).B1]]</tw-passagedata><tw-passagedata pid="53" name="A12.A1.(A2,B2).A1" tags="" position="475,900" size="100,100">“Hey, what the hell do ya think you’re doin’?” //I holler, trying to push him back down.// “At this rate, you’re gonna get both of us killed!”
+[[Let him go|A12.A1.(A2,B2).B1]]
+
+ &lt;&lt;set $seconds to 15&gt;&gt;
+
+&lt;span id=&quot;countdown&quot;&gt;$seconds&lt;/span&gt;
+&lt;&lt;silently&gt;&gt;
+    &lt;&lt;repeat 1s&gt;&gt;
+        &lt;&lt;set $seconds to $seconds - 1&gt;&gt;
+        &lt;&lt;if $seconds gt 0&gt;&gt;
+            &lt;&lt;replace &quot;#countdown&quot;&gt;&gt; $seconds &lt;&lt;/replace&gt;&gt;
+        &lt;&lt;else&gt;&gt;
+            &lt;&lt;replace &quot;#countdown&quot;&gt;&gt;&lt;&lt;/replace&gt;&gt;
+            &lt;&lt;goto &quot;A12.A1.(A2,B2).B1&quot;&gt;&gt;
+            &lt;&lt;stop&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/repeat&gt;&gt;
+&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="A12.A1.(A2,B2).A1" tags="" position="450,900" size="100,100">“Hey, what the hell do ya think you’re doin’?” //I holler, trying to push him back down.// “At this rate, you’re gonna get both of us killed!”
 
 “Get the FUCK OFF ME!” //Thomas snaps, grabbing his rifle before swinging it like a club, [[hitting me square in the jaw.|A12.A1.(A2,B2).A2]]//</tw-passagedata><tw-passagedata pid="54" name="A12.A1.(A2,B2).B1" tags="" position="475,1025" size="100,100">“Fine, if you wanna get yourself killed, be my guest.” //I say, letting him go. Without my resistance Thomas quickly scrambles to his feet, sprinting out into the chaos without looking back.//
 
