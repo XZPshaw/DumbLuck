@@ -680,9 +680,28 @@ Following my gaze, Will scoffs at the sight of the panicking soldier.// “Godda
 “What, are you going to risk your life to try and calm him down?” //Ed laughs.// 
 “Look at him, he’s a lost cause! Even if you succeed, he’ll just get shot a few minutes later. Now come on!”
 
+&lt;&lt;cont append&gt;&gt;\
+Make your choice:
 
 [[Help the panicked soldier|A12.A1]]
-[[Keep moving up with Edward|A12.B1]]</tw-passagedata><tw-passagedata pid="37" name="A12.A1" tags="" position="225,425" size="100,100">//Ignoring Ed’s words, I pick myself up and prepare to sprint over to Thomas position.//
+[[Keep moving up with Edward|A12.B1]]
+
+ &lt;&lt;set $seconds to 12&gt;&gt;
+
+&lt;span id=&quot;countdown&quot;&gt;$seconds&lt;/span&gt;
+&lt;&lt;silently&gt;&gt;
+    &lt;&lt;repeat 1s&gt;&gt;
+        &lt;&lt;set $seconds to $seconds - 1&gt;&gt;
+        &lt;&lt;if $seconds gt 0&gt;&gt;
+            &lt;&lt;replace &quot;#countdown&quot;&gt;&gt; $seconds &lt;&lt;/replace&gt;&gt;
+        &lt;&lt;else&gt;&gt;
+            &lt;&lt;replace &quot;#countdown&quot;&gt;&gt;&lt;&lt;/replace&gt;&gt;
+            &lt;&lt;goto &quot;A12.B1&quot;&gt;&gt;
+            &lt;&lt;stop&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/repeat&gt;&gt;
+&lt;&lt;/silently&gt;&gt;
+&lt;&lt;/cont&gt;&gt;</tw-passagedata><tw-passagedata pid="37" name="A12.A1" tags="" position="225,425" size="100,100">//Ignoring Ed’s words, I pick myself up and prepare to sprint over to Thomas position.//
 
 “…Wait, what are you doing you idiot?!” //Ed yells.//
 
@@ -892,7 +911,7 @@ Progress to goal: &lt;&lt;showmeter &#39;progress&#39; `$progress / $maxProgress
     &lt;&lt;updatemeter &#39;progress&#39; `$progress / $maxProgress`&gt;&gt;
 &lt;&lt;/link&gt;&gt;
 
-&lt;&lt;if $injuried is 1&gt;&gt;&lt;&lt;repeat 0.7s&gt;&gt;&lt;&lt;set $progress to Math.clamp($progress - 20, 0, $maxProgress)&gt;&gt;&lt;&lt;updatemeter &#39;progress&#39; `$progress / $maxProgress`&gt;&gt;&lt;&lt;/repeat&gt;&gt;&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="64" name="injuried2" tags="" position="1275,2200" size="100,100">you made it</tw-passagedata><tw-passagedata pid="65" name="A13" tags="" position="1850,25" size="100,100">“Well ma, I thought I should write you another letter to let you know that I’m alive and kicking. We began our attack on the Germans yesterday and they’ve already given up their first line of defenses without much of a fight. A few of them put up a stiff resistance, but most of them just surrendered to us without much fuss… They say our shellfire was hellish, and it’s been days since they’ve been able to get anything to eat, or any new troops to relieve them. At this point I’m thinking that we’ll have kicked them outta here by the end of the week at this rate! &lt;&lt;if $riped is 1&gt;&gt;[[Any who, I’ll try and write to you again soon, say hi to the family for me!|A13.B1]]&quot;&lt;&lt;elseif $injuryed is 1&gt;&gt;[[Any who, I’ll try and write to you again soon, say hi to the family for me!|A13.B1]]&quot;&lt;&lt;else&gt;&gt;[[Any who, I’ll try and write to you again soon, say hi to the family for me!|A13.A1]]&quot;&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="66" name="A13.A1" tags="" position="2000,150" size="100,100">&lt;img src=&quot;./graphic/Ed_Portrait.png&quot; align=&quot;left&quot;/&gt;
+&lt;&lt;if $injuried is 1&gt;&gt;&lt;&lt;repeat 0.7s&gt;&gt;&lt;&lt;set $progress to Math.clamp($progress - 20, 0, $maxProgress)&gt;&gt;&lt;&lt;updatemeter &#39;progress&#39; `$progress / $maxProgress`&gt;&gt;&lt;&lt;/repeat&gt;&gt;&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="64" name="injuried2" tags="" position="1275,2200" size="100,100">you made it</tw-passagedata><tw-passagedata pid="65" name="A13" tags="" position="1850,25" size="100,100">“Well ma, I thought I should write you another letter to let you know that I’m alive and kicking. We began our attack on the Germans yesterday and they’ve already given up their first line of defenses without much of a fight. A few of them put up a stiff resistance, but most of them just surrendered to us without much fuss… They say our shellfire was hellish, and it’s been days since they’ve been able to get anything to eat, or any new troops to relieve them. At this point I’m thinking that we’ll have kicked them outta here by the end of the week at this rate! &lt;&lt;if $riped is 1&gt;&gt;[[Any who, I’ll try and write to you again soon, say hi to the family for me!|A13.B1]]&quot;&lt;&lt;elseif $injuryed is 1&gt;&gt;[[Any who, I’ll try and write to you again soon, say hi to the family for me!|A13.B1]]&quot;&lt;&lt;else&gt;&gt;[[Any who, I’ll try and write to you again soon, say hi to the family for me!|A13.A1]]&quot;&lt;&lt;/if&gt;&gt;`</tw-passagedata><tw-passagedata pid="66" name="A13.A1" tags="" position="2000,150" size="100,100">&lt;img src=&quot;./graphic/Ed_Portrait.png&quot; align=&quot;left&quot;/&gt;
 
 //As I put the finishing touches on my letter, I look to my side to see Ed napping, oblivious to the world around him. Before someone important caught him like this, I quickly amended his condition with a swift knock on his helmet, causing his to bolt upright.//
 “AH! What the hell?” //Ed cried, searching for his assailant.//
@@ -908,12 +927,30 @@ Progress to goal: &lt;&lt;showmeter &#39;progress&#39; `$progress / $maxProgress
 “Alright, maybe you had a point there…” //Ed muttered,// “But what do you want me to do, automatically treat every German I see like he’s my friend?! Will, these Hun aren’t our friends, they’re our enemies, and we’ve been killing each other for 3 years now. Any show of empathy won’t be seen as chivalrous, they’ll see it as weakness, and just try to kill you. If we don’t hurt the Hun any time we can, then they will just try to kill us instead. [[Will, the only way this ends are with either our side or theirs dead.|A13.A3]]”
 </tw-passagedata><tw-passagedata pid="70" name="A13.A3" tags="" position="2250,150" size="100,100">“Well, maybe you have a point…” I respond, “But still-”
 	“Still what?” //Ed cut me off.// “We’re at war, Will. If we want to survive, we can’t show any mercy. Only brutality.”
-    
+
+&lt;&lt;cont append&gt;&gt;\
+
     ~Will You~
     [[Make your point.|A13.A3.A1]]
     or
     [[Let it go.|A13.A3.B1]]
-</tw-passagedata><tw-passagedata pid="71" name="A13.A2.B1" tags="" position="2125,550" size="100,100">“Would he have, now?” //I pushed back.// “For all we know, the only reason he fought back was because you were kicking him!”
+
+ &lt;&lt;set $seconds to 12&gt;&gt;
+
+&lt;span id=&quot;countdown&quot;&gt;$seconds&lt;/span&gt;
+&lt;&lt;silently&gt;&gt;
+    &lt;&lt;repeat 1s&gt;&gt;
+        &lt;&lt;set $seconds to $seconds - 1&gt;&gt;
+        &lt;&lt;if $seconds gt 0&gt;&gt;
+            &lt;&lt;replace &quot;#countdown&quot;&gt;&gt; $seconds &lt;&lt;/replace&gt;&gt;
+        &lt;&lt;else&gt;&gt;
+            &lt;&lt;replace &quot;#countdown&quot;&gt;&gt;&lt;&lt;/replace&gt;&gt;
+            &lt;&lt;goto &quot;A13.A3.B1&quot;&gt;&gt;
+            &lt;&lt;stop&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/repeat&gt;&gt;
+&lt;&lt;/silently&gt;&gt;
+&lt;&lt;/cont&gt;&gt;</tw-passagedata><tw-passagedata pid="71" name="A13.A2.B1" tags="" position="2125,550" size="100,100">“Would he have, now?” //I pushed back.// “For all we know, the only reason he fought back was because you were kicking him!”
 
 //At this Ed scoffed at me.// “Oh yeah? So, what, you think we can just stop this fighting, huh? If we don’t hurt the Hun any time we can, then they will just try to kill us instead. Will, the only way [[this ends are with either our side or theirs dead.|A13.A3]]”
 </tw-passagedata><tw-passagedata pid="72" name="A13.A3.A1" tags="" position="2125,675" size="100,100">“No!” //I snapped.// “Ya don’t have let this war make ya a monster. Just because we’re all in this situation doesn’t mean we have to abandon our morality… I mean we’ve seen it happen before, the Christmas Truce! [[Who’s to say we can’t make something like that happen again?|A13.A3.A2]]”</tw-passagedata><tw-passagedata pid="73" name="A13.A3.B1" tags="" position="2125,800" size="100,100">“Fine, never mind then. Ya win.” //I muttered, not wanting to strain our relationship any further. After this we continued our bout of silence for the next few hours of sentry duty, [[with only the sound of soldiers and artillery strikes to punctuate it.|A13.A4]]//</tw-passagedata><tw-passagedata pid="74" name="A13.A3.A2" tags="" position="2250,675" size="100,100">“Our commanders.” //Ed scoffed.// “Face it Will, no matter how idealistic you talk at the end of the day those in charge don’t want us to make peace with the Hun, they want us to kill them.” //With this we continued our bout of silence for the next few hours of sentry duty, [[with only the sound of soldiers and artillery strikes to punctuate it.|A13.A4]]//</tw-passagedata><tw-passagedata pid="75" name="A13.A4" tags="" position="2375,150" size="100,100">//Suddenly, a new collection of sounds made themselves known; shouting, screaming, and gunfire.// “Ah shit!” //Ed screamed, manning the machine gun.// “it’s a German counter-attack!” //Looking out at No Mans Land, his suspicions were confirmed as we watched dozens of German soldiers’ stream over the horizon, pushing against a withering barrage of Canadian firepower to make it to our lines. Soon enough we watched, helpless as close quarters fighting broke out all along the line, German soldiers turning our front into a chaotic mess of disconnected brawls, groups of soldiers fighting for their life. Looking out in horror, I’m thrown back to reality by Ed shaking me.//
@@ -1413,6 +1450,14 @@ or
         &#39;The last soldier to die in World War I was a Canadian soldier named George Price. Because he died too unjustly, which also made George Price the most self-inflicted soldier in World War I. It turned out that the smoke of the end of the First World War had just filled the air. As soon as he heard the news of the flameout, he poked his head out and cheered heartily, but in the end he was overwhelmed with joy and sorrow, and was killed by an angry German sniper.&#39;,
         &#39;During the First World War, in addition to a large number of soldiers from civilians, there were also many young people from the nobility competing to participate in this large-scale battle. Although most of them are officers or non-commissioned officers, there are still countless noble youths who died on the battlefield of World War I. According to incomplete statistics, the British sacrificed about 1.2 million soldiers during the First World War, while only about 300,000 soldiers were sacrificed in the Second World War. In the First World War, the death rate of the top soldiers reached about 12%, while the death rate of the noble officers was as high as 20%.&#39;,
         &#39;The trenches that appeared in World War I were originally invented by the Germans. The Germans found that trenches could reduce casualties, so they dug trenches desperately. As a result, Britain, France and Germany began to consume, and the trenches of the two countries were dug westward to the Atlantic Ocean. Moreover, the requirements for trenches in Germany are very high. Not only can you lie on your stomach to avoid such establishments, but there are also various equipment such as beds, furniture, doors, etc., which are completely different from what we see on TV.&#39;,
+        &#39;Canadian soldiers in particular were known for their ruthlessness during the War, known for fighting harder than other nations soldiers, and for being particularly vicious towards prisoners of war. This would lead to a special hatred to be reserved for Canadians by the Germans, an attitude best explained by one case where the Germans, who were used to the “Live and let live” policy practiced by other armies, congregated around a spot where Canadian soldiers were throwing cans of ham. Eventually, these Canadians would suddenly switch from cans of ham to grenades.&#39;,
+        &#39;At the beginning of the war, the UK employed a recruitment strategy known as “Pals Battalions”, where volunteers would be assigned with a battalion composed of people from their town or village. This would lead to the male populations of entire towns being wiped out in days as these battalions got torn apart during the Sommes offensive of 1915, which would also lead to the end of the program.&#39;,
+        &#39;Fritz Haber, a German scientist, is primarily known for the Haber-Bosch process, a revolutionary way to separate ammonia from hydrogen and nitrogen gas, which is so essential to the mass production of fertilizer that its estimated that up to half of the world’s population is supported by food reliant on ammonia from this process. However, he is also known as “The father of chemical warfare”, having been instrumental in the weaponization of chemical gas, and was present on the day it was used in the Second Battle of Ypres. He would later defend the use of chemical weapons, saying that “death was death” to accusations of its inhumanity.&#39;,
+        &#39;Both of the Titanic’s sister ships would see service in WW1. The Britannic would serve as a hospital ship before being sunk in 1916 when it hit a mine, with one of its survivors also having been on the Titanic’s maiden voyage. Meanwhile the other ship, the Olympic, would have a much more successful career as a troopship, ferrying thousands of men across the Atlantic and even taking out the German submarine U-103 through a ramming maneuver before returning to civilian service after the end of the war.&#39;,
+        &#39;A decorated hero from the Serbian army of the First World War, Milunka Savić was a women took the place of her brother in order to serve her nation in the fight against Austria-Hungary. She was an incredibly well decorated soldier, the most well decorated female soldier of all time in fact, earning honours like the Karađorđe Star for capturing 26 Bulgarians singlehandedly, as well as being the only woman to have won the French Croix de Guerre 1914-1918.&#39;,
+        &#39;In a conflict on the Eastern front, 7 000 German soldiers attacked Osowiec Fortress, which was held by no more than 900 Russians. After they hit the fortress with gas, however, they were surprised to find a Russian counterattack approaching them, 150 men sprinting at the German’s who, from the effects of the gas were coughing up blood and bits of their own lungs. The sight of these men frightened the Germans so much that they retreated, with the remaining Russian artillery guns opening fire on them as they fell back. This battle would later be coined as “The Attack of the Dead Men,” in reference to the Russian’s zombie-like appearance.&#39;,
+        &#39;Due to the British blockade, German citizens had to rely on increasingly desperate rations for sustenance. This led to situations where bread had to be cut with sawdust, as well as an event known as the “Turnip Winter”, where food had gotten so scarce from poor potato harvests, combined with the aforementioned blockade, that turnips, traditionally only used as animal feed, became the only food available during the 1917 winter. Thousands would die from these conditions, and quality of life would decrease massively, with female mortality in particular suffering a 30% increase in 1917 compared to pre-war rates.&#39;,
+   
         ]&gt;&gt;&lt;&lt;= _facts.random()&gt;&gt;
      &lt;&lt;/dialog&gt;&gt;
 &lt;&lt;/link&gt;&gt;
