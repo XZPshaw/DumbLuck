@@ -861,7 +861,9 @@ or
 “Mhm… Mhm… Oh…” //He mumbles.// “I’m sorry to tell you this, Private, but Private Edward passed away an hour ago from blood loss. He had gotten into a firefight with a German soldier and was gravely wounded… My condolences.”
 
 //I simply stare at him. //“Oh… Oh god…” //[[I fall to my knees, my face buried into my hands.|A13]]//
-&lt;&lt;set $riped to 1&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="A12.A1.(A2,B2).B2" tags="" position="600,925" size="100,100">//As I follow the remains of our advance, I’m shocked at the scale of the carnage; Hundreds of bodies scattered as far as the eye can see, the burning hulks of disabled tanks peppering the battle-scarred countryside. However, when I reach the German line it appears that I have finally caught up to my allies as I find it under heavy assault. Dozens of firefights rage in the trench as artillery continues to strike remaining German positions, however, one noise sticks out to me out of the chaos: [[The sound of Ed screaming.|A12.A1.(A2,B2).B3]]//</tw-passagedata><tw-passagedata pid="58" name="A12.A1.(A2,B2).B3" tags="" position="725,925" size="100,100">&lt;img src=&quot;./graphic/Ed_Portrait.png&quot; align=&quot;left&quot;/&gt;
+&lt;&lt;set $riped to 1&gt;&gt;
+&lt;&lt;set $injury to 1&gt;&gt;
+</tw-passagedata><tw-passagedata pid="57" name="A12.A1.(A2,B2).B2" tags="" position="600,925" size="100,100">//As I follow the remains of our advance, I’m shocked at the scale of the carnage; Hundreds of bodies scattered as far as the eye can see, the burning hulks of disabled tanks peppering the battle-scarred countryside. However, when I reach the German line it appears that I have finally caught up to my allies as I find it under heavy assault. Dozens of firefights rage in the trench as artillery continues to strike remaining German positions, however, one noise sticks out to me out of the chaos: [[The sound of Ed screaming.|A12.A1.(A2,B2).B3]]//</tw-passagedata><tw-passagedata pid="58" name="A12.A1.(A2,B2).B3" tags="" position="725,925" size="100,100">&lt;img src=&quot;./graphic/Ed_Portrait.png&quot; align=&quot;left&quot;/&gt;
 
 //Looking for the source of it, I spot a partially collapsed German bunker. Sprinting into it, I find Ed leaning against a wall, clutching a gunshot wound as blood oozes from it. Opposite of him is the body of a German soldier, clutching the pistol that he had no doubt shot Ed with.//
 
@@ -886,9 +888,7 @@ or
 “Well… Depends on what you count as alright.” //He responds.// &quot;At this point I’m confident that he’ll survive, but the leg got infected… Its going to have to be amputated. To give him the best chance, he needs to rest for now so I’m going to have to ask you to clear out.”
 
 “Oh… Okay…” //I mutter, still reeling at what the medic just told me. I quickly shuffle out of the overflowing medical camp, passing by a nearly endless field of grievously wounded soldiers, [[countless men suffering the same fate as Ed|A13]].// 
-&lt;&lt;set $riped to 0&gt;&gt;
-&lt;&lt;set $injuryed to 1&gt;&gt;
-</tw-passagedata><tw-passagedata pid="61" name="Maptrap" tags="" position="1000,2200" size="100,100">&lt;&lt;set $hurt to 1&gt;&gt;
+&lt;&lt;set $riped to 0&gt;&gt;</tw-passagedata><tw-passagedata pid="61" name="Maptrap" tags="" position="1000,2200" size="100,100">&lt;&lt;set $hurt to 1&gt;&gt;
 &quot;AAAAAAAHHHHHHH&quot;
 [[Press On|Mapbm]]</tw-passagedata><tw-passagedata pid="62" name="Mapstart" tags="" position="300,2525" size="100,100">Map is in 3 by 3 grid
 Player gets 5 moves until something happens
@@ -1020,14 +1020,24 @@ Progress to goal: &lt;&lt;showmeter &#39;progress&#39; `$progress / $maxProgress
     or
     [[Follow|A13.B7.B1]]
     
-</tw-passagedata><tw-passagedata pid="86" name="A13.B7.A1" tags="" position="2875,1250" size="100,100">//I pat him on the shoulder.// “We’re fightin’ our way outta this one.”
+</tw-passagedata><tw-passagedata pid="86" name="A13.B7.A1" tags="" position="2750,1250" size="100,100">&lt;&lt;if $injury is 1&gt;&gt;
+//Before I could answer, a throbbing pain struck my head out of nowhere, feeling as though my brain was going to explode out of my skull. As I looked around, I noticed that the colour seemed to be draining from the environment, and by the time I had turned to Tom sound seemed to have followed, his lips making no sound no matter how much they moved.// “Uhh… W…” //[[I sputtered, before collapsing to the ground.|A13.B7.(A6,B6).A1]]//
+
+&lt;&lt;else&gt;&gt;
+//I pat him on the shoulder.// “We’re fightin’ our way outta this one.”
 
 “Understood…” //He sighs, unslinging his rifle.// “What’s the game plan then?”
 
 “Your enthusiasm fills me with confidence.” //I dryly remark, before leaning myself up against the corner, preparing to attack.// “The plan is easy. There still a way’s away, so when I say so, we jump out and gun’em down. You take the guy on the left, me the right, and whoever is done first deals with the guy in the middle. [[Good?|A13.B7.A2]]”
-</tw-passagedata><tw-passagedata pid="87" name="A13.B7.B1" tags="" position="2875,1375" size="100,100">//I sigh, lowering my rifle.// “Alright, lets do with your plan, but if they spot us, then I’m gonna kill ya. Hug the wall and wait for them to pass. We’ll think of our next move after they’re gone.”
+&lt;&lt;/if&gt;&gt;
+</tw-passagedata><tw-passagedata pid="87" name="A13.B7.B1" tags="" position="2750,1375" size="100,100">&lt;&lt;if $injury is 1&gt;&gt;
+//Before I could answer, a throbbing pain struck my head out of nowhere, feeling as though my brain was going to explode out of my skull. As I looked around, I noticed that the colour seemed to be draining from the environment, and by the time I had turned to Tom sound seemed to have followed, his lips making no sound no matter how much they moved.// “Uhh… W…” //[[I sputtered, before collapsing to the ground.|A13.B7.(A6,B6).A1]]//
+
+&lt;&lt;else&gt;&gt;
+//I sigh, lowering my rifle.// “Alright, lets do with your plan, but if they spot us, then I’m gonna kill ya. Hug the wall and wait for them to pass. We’ll think of our next move after they’re gone.”
 //Thomas silently nods, clearly not wanting to draw the attention of the Germans at the last minute as we post ourselves up on the trench wall, my rifle pointed at the corner just in case. As the Germans get closer, I’m able to pick out what they’re saying, [[though the language barrier holds strong.|A13.B7.B2]]//
-</tw-passagedata><tw-passagedata pid="88" name="A13.B7.A2" tags="" position="3000,1250" size="100,100">//Thomas silently nods, clearly not wanting to draw the attention of the Germans at the last minute.// “Alright then” //I whisper…// “On my mark… MARK!” //I jump out from behind the corner, with Thomas following a moment later as I began to lay down fire on the unsuspecting Germans.//
+
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="88" name="A13.B7.A2" tags="" position="3000,1250" size="100,100">//Thomas silently nods, clearly not wanting to draw the attention of the Germans at the last minute.// “Alright then” //I whisper…// “On my mark… MARK!” //I jump out from behind the corner, with Thomas following a moment later as I began to lay down fire on the unsuspecting Germans.//
 
 “SCHEIßE!” //The one on the left was able to scream before my bullet tore through his head, killing him before he could hit the ground. The man on the right, meanwhile, was desperately trying to unsling his rifle when Thomas’s shot hit him in the gut, [[leaving him writhing in pain on the ground.|A13.B7.A3]]//
 </tw-passagedata><tw-passagedata pid="89" name="A13.B7.A3" tags="" position="3125,1250" size="100,100">“GOTT MIT UNS!” //The final German’s cry brought our attention to him, as he barrelled towards us at an inhuman sprint, brandishing a raiding club. Thomas, his hands shaking, tried to aim his rifle on him, but the bullet went wide, missing the man entirely. By the time I had trained my sights on him, he was on us, clubbing Thomas over the head before I could put him down. His limp body fell over Tom, forcing me to heave the body away before I could get to him.//
@@ -1053,14 +1063,11 @@ Progress to goal: &lt;&lt;showmeter &#39;progress&#39; `$progress / $maxProgress
 
 “And if we don’t go where they were headed, we might well be damning some of our boys to their deaths…” //I muttered, before looking up at him.//
 
-&lt;&lt;if $injury is 1&gt;&gt;
-//Before I could answer, a throbbing pain struck my head out of nowhere, feeling as though my brain was going to explode out of my skull. As I looked around, I noticed that the colour seemed to be draining from the environment, and by the time I had turned to Tom sound seemed to have followed, his lips making no sound no matter how much they moved.// “Uhh… W…” //[[I sputtered, before collapsing to the ground.|A13.B7.(A6,B6).A1]]//
-&lt;&lt;else&gt;&gt;
 ~Will You~
 [[Retrace their steps.|A13.B7.A6.A1]]
 or
 [[See where they were going.|A13.B7.A6.B1]]
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="93" name="A13.B7.B2" tags="" position="3000,1375" size="100,100">&lt;img src=&quot;./graphic/German_Soldier_Portrait.png&quot; align=&quot;left&quot;/&gt;
+</tw-passagedata><tw-passagedata pid="93" name="A13.B7.B2" tags="" position="3000,1375" size="100,100">&lt;img src=&quot;./graphic/German_Soldier_Portrait.png&quot; align=&quot;left&quot;/&gt;
 
 
 “Was ist mit ihren Opfern?” //One of them apparently asks as they continue up the line.//
@@ -1075,15 +1082,12 @@ or
 “Well… If we want to find the battle, I suppose we should see where they were going, after all they wouldn’t be walking away from the battle, right?”
 
 “Fair enough! In that case, lead the way.” //I respond, gesturing for him to lead the way. He cautiously accepts, slowly leading us down the trench lines and towards the Germans. It wasn’t long, however, [[until the sound of a new firefight opened up in front of us.|A13.B7.B5]]//
-</tw-passagedata><tw-passagedata pid="96" name="A13.B7.B5" tags="" position="3375,1375" size="100,100">//I pushed ahead of Thomas, rifle in my hands as I began to sprint forwards.// “C’mon Tom, they’ve engaged, let’s move!” //I screamed as I surged ahead. Thomas could barely keep up with me as I tackled the first German I saw, locking into hand-to-hand combat with him. One of the other Krauts was already down, shot through the shoulder, while the remaining one was locked in a firefight with the Canadian soldiers they had come across.// “TOM!” //I yelled.// [[“TAKE’EM OUT!”|A13.B7.B6]]</tw-passagedata><tw-passagedata pid="97" name="A13.B7.B6" tags="" position="3550,1400" size="100,100">//My order made him snap to attention, sprinting towards the last German and tackling him to the ground, catching him entirely off guard. As Tom struggled, I had gained the upper hand in my fight, giving me the opportunity to kill this German, take him out once and for all… But now Tom had gotten into my head. Did he deserve it? I could just knock him out, give him a chance…//
-&lt;&lt;if $injury is 1&gt;&gt;
-//Before I could answer, a throbbing pain struck my head out of nowhere, feeling as though my brain was going to explode out of my skull. As I looked around, I noticed that the colour seemed to be draining from the environment, and by the time I had turned to Tom sound seemed to have followed, his lips making no sound no matter how much they moved.// “Uhh… W…” //[[I sputtered, before collapsing to the ground.|A13.B7.(A6,B6).A1]]//
-&lt;&lt;else&gt;&gt;
+</tw-passagedata><tw-passagedata pid="96" name="A13.B7.B5" tags="" position="3375,1375" size="100,100">//I pushed ahead of Thomas, rifle in my hands as I began to sprint forwards.// “C’mon Tom, they’ve engaged, let’s move!” //I screamed as I surged ahead. Thomas could barely keep up with me as I tackled the first German I saw, locking into hand-to-hand combat with him. One of the other Krauts was already down, shot through the shoulder, while the remaining one was locked in a firefight with the Canadian soldiers they had come across.// “TOM!” //I yelled.// [[“TAKE’EM OUT!”|A13.B7.B6]]</tw-passagedata><tw-passagedata pid="97" name="A13.B7.B6" tags="" position="3575,1400" size="100,100">//My order made him snap to attention, sprinting towards the last German and tackling him to the ground, catching him entirely off guard. As Tom struggled, I had gained the upper hand in my fight, giving me the opportunity to kill this German, take him out once and for all… But now Tom had gotten into my head. Did he deserve it? I could just knock him out, give him a chance…//
+
 ~Will You~
 [[Kill him.|A13.B7.B6.Kill]]
 or
 [[Knock him out.|A13.B7.B6.Knockout]]
-&lt;&lt;/if&gt;&gt;
 
 
 </tw-passagedata><tw-passagedata pid="98" name="A13.B7.(A6,B6).A1" tags="" position="2975,1500" size="100,100">&lt;img src=&quot;./graphic/German_Soldier_Portrait.png&quot; align=&quot;left&quot;/&gt;
